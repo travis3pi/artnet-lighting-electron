@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Art-Net -> Unity</title>
+    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+    <meta content="script-src 'self' 'unsafe-inline';" http-equiv="Content-Security-Policy"/>
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="background-color: rgb(30,30,50)">
+<!-- As a heading -->
+<nav class="navbar navbar-dark bg-dark">
+    <span class="navbar-brand mb-0 h1">Art-Net Unity</span>
+    <button class="btn btn-secondary" type="button">Settings</button>
+</nav>
+
+<br>
+<div class="container">
+    <div id="channels">
+
+    </div>
+
+</div>
+
+<script>window.$ = window.jQuery = require('jquery');</script>
+<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="client.js"></script>
+</body>
+</html>
