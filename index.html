@@ -11,9 +11,11 @@
 <!-- As a heading -->
 <nav class="navbar navbar-dark bg-dark">
     <span class="navbar-brand mb-0 h1">Art-Net Unity</span>
-    <button class="btn btn-secondary" type="button">Settings</button>
+    <button class="btn btn-secondary" id="settingsButton" type="button">Settings</button>
 </nav>
-
+<div class="alert alert-danger" id="alert" role="alert" style="display: none">
+    There has been an error sending the OSC packet, please make sure configuration is correct.
+</div>
 <br>
 <div class="container">
     <div id="channels">

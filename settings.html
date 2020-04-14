@@ -1,0 +1,25 @@
+<html>
+<head>
+    <title>Settings</title>
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="background-color: rgb(30,30,50); padding: 20px;">
+<h3 style="color: white">Settings</h3>
+<br>
+<div class="form-group">
+    <label for="ipAddress" style="color: white">IP Address of Unity</label>
+    <input class="form-control" id="ipAddress" type="text">
+</div>
+<div class="form-group">
+    <label for="sendPort" style="color: white">Unity Port</label>
+    <input class="form-control" id="sendPort" type="text">
+</div>
+</body>
+<br>
+<button class="btn btn-warning" id="cancelButton">Cancel</button>
+<button class="btn btn-success" id="saveButton">Save</button>
+
+<script>window.$ = window.jQuery = require('jquery');</script>
+<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="settings.js"></script>
+</html>

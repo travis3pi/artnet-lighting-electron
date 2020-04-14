@@ -2,7 +2,14 @@ const electron = require('electron');
 const ipcRenderer = electron.ipcRenderer;
 
 ipcRenderer.send('windowCreated');
-
+ipcRenderer.on('error', (event, data) => {
+    //console.log(data);
+    if (data) {
+        $('#alert').show();
+    } else {
+        $('#alert').hide();
+    }
+})
 ipcRenderer.on('newData', (event, newData) => {
     //console.log(newData);
     let currentChannel = $(`#a${newData.channel}`);
@@ -24,20 +31,7 @@ for (var i = 0; i < 16; i++) {
 `);
 }
 
-// socket.on('newConnection', () => {
-//     let channels = $('#channels');
-//
-//
-//         for(var i=0;i<16;i++) {
-//             channels.append(`
-// <div class="channel-container">
-//         <p style="color: white">Address ${i+1}</p>
-//         <div class="progress">
-//             <div id="a${i+1}" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="255" id="a1">${0}</div>
-//         </div>
-// </div>
-// <br>
-// `);
-//         }
-//
-// });
+$('#settingsButton').click(() => {
+    console.log('Settings button clicked');
+    ipcRenderer.send('settingsButtonClicked');
+})

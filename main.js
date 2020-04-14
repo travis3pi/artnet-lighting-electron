@@ -1,9 +1,28 @@
 const {app, BrowserWindow, ipcMain} = require('electron');
 const osc = require('osc');
+const Store = require('electron-store');
+
+const store = new Store();
+
+let ipAddress = store.get('ipAddress');
+let sendPort = Number.parseInt(store.get('sendPort'));
+
+if (!ipAddress) {
+    ipAddress = 'localhost'
+}
+if (!sendPort) {
+    sendPort = 57110
+}
+
+
+let settingsWindow;
+
+let win;
+
 
 function createWindow() {
     // Create the browser window.
-    const win = new BrowserWindow({
+    win = new BrowserWindow({
         width: 1200,
         height: 700,
         webPreferences: {
@@ -15,7 +34,7 @@ function createWindow() {
     win.loadFile('index.html');
 
     // Open the DevTools.
-    win.webContents.openDevTools()
+    //win.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
@@ -74,8 +93,9 @@ udpserver.on('error', function (error) {
 udpserver.bind(6454);
 
 ipcMain.on('windowCreated', event => {
+
     udpserver.on('message', (message) => {
-        console.log(message[18]);
+        //console.log(message[18]);
         for (var i = 0; i < 16; i++) {
             if (dataArray.data[i].value !== message[i + 18]) {
                 dataArray.data[i].value = message[i + 18];
@@ -93,10 +113,41 @@ ipcMain.on('windowCreated', event => {
                             value: dataArray.data[i].value
                         }
                     ]
-                }, "127.0.0.1", 57110);
+                }, ipAddress, sendPort);
 
             }
         }
+        win.webContents.send('error', false)
+    });
+
+    process.on('uncaughtException', function (error) {
+        //console.log(error);
+        win.webContents.send('error', true)
     });
 });
 
+ipcMain.on('settingsButtonClicked', () => {
+    settingsWindow = new BrowserWindow({
+        width: 400, height: 450, webPreferences: {
+            nodeIntegration: true
+        }
+    })
+
+    settingsWindow.loadFile('./settings.html');
+    setTimeout(() => {
+        settingsWindow.webContents.send('settingsData', {ipAddress, sendPort})
+    }, 500);
+});
+
+ipcMain.on('saveSettings', (event, data) => {
+    console.log(data);
+    sendPort = data.sendPort;
+    ipAddress = data.ipAddress;
+    store.set('ipAddress', ipAddress);
+    store.set('sendPort', sendPort);
+    settingsWindow.close();
+})
+
+ipcMain.on('settingsCancel', () => {
+    settingsWindow.close();
+})
