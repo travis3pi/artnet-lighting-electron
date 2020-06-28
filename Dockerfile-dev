@@ -1,0 +1,15 @@
+FROM node:14
+
+WORKDIR /usr/app
+
+COPY package.json .
+
+RUN npm install
+
+EXPOSE 3000
+
+EXPOSE 6454/udp
+
+COPY . .
+
+CMD npm run dev

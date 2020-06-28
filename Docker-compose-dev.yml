@@ -1,0 +1,14 @@
+version: '3.1'
+
+services:
+
+  node:
+    build:
+      dockerfile: Dockerfile-dev
+      context: ./
+    ports:
+      - "3000:3000"
+      - "6454:6454/udp"
+    volumes:
+      - ./:/usr/app
+
