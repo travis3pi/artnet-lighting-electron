@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "dev": "nodemon sock.js"
+    "dev": "nodemon sock.js",
+    "start-server": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
@@ -16,7 +17,8 @@
     "express": "^4.17.1",
     "jquery": "^3.4.1",
     "osc": "^2.4.1",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0"
   },
   "devDependencies": {
     "electron": "^8.2.2",

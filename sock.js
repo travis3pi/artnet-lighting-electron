@@ -1,6 +1,5 @@
 var app = require('express')();
-var http = require('http').createServer(app);
-var io = require('socket.io')(http);
+var socket = require('socket.io-client')('http://artnet-server-vr-club.tmkinteractive.com:3000');
 
 
 var udp = require('dgram');
@@ -17,7 +16,7 @@ server.on('error', function (error) {
 
 
 app.get('/', (req, res) => {
-    res.send('<h1>Hello world</h1>');
+    res.send('<h1>Hello world!</h1>');
 });
 
 server.on('message', (message) => {
@@ -25,21 +24,24 @@ server.on('message', (message) => {
     for (let i = 18; i < 500; i++) {
         if (!(i % 3)) {
             // console.log((i / 3) - 5)
-            io.emit('light', {id: (i / 3) - 5, r: message[i], g: message[i + 1], b: message[i + 2]});
+            socket.emit('light', {id: (i / 3) - 5, r: message[i], g: message[i + 1], b: message[i + 2]});
         }
     }
 })
 
-io.on('connection', (socket) => {
-    console.log('Client connected');
-    io.emit('light', {id: 1, r: 255, g: 100, b: 200});
 
-    socket.on('disconnect', () => {
-        console.log('Client disconnected')
-    })
+socket.on('testMessage', (data) => {
+    console.log(data);
+})
 
+socket.on('connect', function () {
+    console.log('Connected to server');
 });
+
+socket.on('disconnect', function () {
+    console.log('Disconnect from server')
+});
+
+
 server.bind(6454);
-http.listen(3000, () => {
-    console.log('listening on *:3000');
-});
+
