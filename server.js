@@ -16,6 +16,10 @@ io.on('connection', (socket) => {
         io.emit('light', data);
     });
 
+    socket.on('qlab', (data) => {
+        io.emit('qlab', data);
+    })
+
 
 });
 

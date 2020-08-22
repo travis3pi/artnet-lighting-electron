@@ -1,0 +1,13 @@
+FROM node:14
+
+WORKDIR /usr/app
+
+COPY package.json .
+
+RUN npm install
+
+EXPOSE 53001/udp
+
+COPY qlab-server.js .
+
+CMD npm run qlab-server

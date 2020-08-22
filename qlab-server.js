@@ -13,9 +13,7 @@ udpPort.on("message", function (oscMsg, timeTag, info) {
     console.log("An OSC message just arrived!", oscMsg);
 
     if (oscMsg.address === '/qlab') {
-        console.log('It is a qlab command');
-        console.log(oscMsg.args[0].value);
-        console.log('spped: ', oscMsg.args[1].value);
+
     }
 
     // console.log("Remote info is: ", info);
