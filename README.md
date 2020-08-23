@@ -1,7 +1,7 @@
 <h1>VR Club Lighting / QLab Control</h1>
 
 <h2>Overview</h2>
-![QLab-Lighting](https://user-images.githubusercontent.com/19987099/90990443-483b1080-e556-11ea-9680-f6597177ffd1.png)
+![QLab-Lighting](/Diagrams/QLab-Lighting.png)
 <p>This repo contains the code used for the theatrical control of unity using ETC Nomad and QLab. The system utilizes a couple of main components. The heart of the system is the network server that is hosted using Digital Ocean. It gives all connected clients a single point of contact, and gives us control of the desired network capabilities of the system. The code itself is simple as it just re-broadcasts the messages received from the QLab and ArtNet clients. The two clients (QLab and ArtNet) are the components doing the majority of the work, and are on the same local network as the thing they are trying to capture. The QLab client captures OSC messages sent by QLab, it then takes those messages and sends them using Socket.IO to the server. Likewise, the ArtNet client captures the lighting packets and broadcasts them to the server. The ArtNet server does some extra processing to only send the updated packets.</p>
 
 <h3>QLab Control</h3>
