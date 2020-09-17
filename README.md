@@ -14,3 +14,7 @@
 <code>docker run -p "53001:53001/udp" -d travis3pi/vr-club-qlab:{tag}</code>
 <p>Note the {tag} in the command above should be populated with the latest version of the software (example: 0.0.2)</p>
 <p>The current URL for the distributed network server is: http://artnet-server-vr-club.tmkinteractive.com:3000 which handles both the lighting and QLab control messages.</p>
+
+<h3>Art-Net Lighting Control</h3>
+<hr>
+<p><code>docker run -d -p "6454:6454/udp" travis3pi/artnet-socket:{tag}</code></p>
