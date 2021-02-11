@@ -21,9 +21,16 @@ io.on('connection', (socket) => {
     })
 
     socket.on('two-way', (data) => {
-        io.emit('two-way', data)
+        io.emit('two-way', data);
     })
 
+    socket.on('agora', (data) => {
+        io.emit('agora', data);
+    })
+
+    socket.on('scene', (data) => {
+        io.emit('scene', data)
+    })
 
 });
 
