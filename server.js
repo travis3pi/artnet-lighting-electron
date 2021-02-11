@@ -20,6 +20,10 @@ io.on('connection', (socket) => {
         io.emit('qlab', data);
     })
 
+    socket.on('two-way', (data) => {
+        io.emit('two-way', data)
+    })
+
 
 });
 

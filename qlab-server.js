@@ -8,6 +8,11 @@ var udpPort = new osc.UDPPort({
     metadata: true
 });
 
+var oscSend = new osc.UDPPort({
+    localAddress: '127.0.0.1',
+    localPort: '53000'
+})
+
 // Listen for incoming OSC messages.
 udpPort.on("message", function (oscMsg, timeTag, info) {
     console.log("An OSC message just arrived!", oscMsg);
@@ -20,7 +25,6 @@ udpPort.on("message", function (oscMsg, timeTag, info) {
     socket.emit('qlab', oscMsg);
 });
 
-
 socket.on('connect', function () {
     console.log('Connected to server');
 });
@@ -28,6 +32,11 @@ socket.on('connect', function () {
 socket.on('disconnect', function () {
     console.log('Disconnect from server')
 });
+
+socket.on('two-way', (data) => {
+    console.log(data);
+
+})
 
 // Open the socket.
 udpPort.open();
