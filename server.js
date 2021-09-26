@@ -12,7 +12,6 @@ var agoraParams = {
     zMax: 0,
     nStr: 0
 }
-
 app.get('/', (req, res) => {
     res.send('<h1>Hello world</h1>');
 });
@@ -52,6 +51,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on('qlab', (data) => {
+        console.log(data)
         io.emit('qlab', data);
     })
 
@@ -71,6 +71,6 @@ io.on('connection', (socket) => {
 });
 
 
-http.listen(3000, () => {
-    console.log('listening on *:3000');
+http.listen(3001, () => {
+    console.log('listening on *:3001');
 });

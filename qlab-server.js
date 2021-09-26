@@ -1,4 +1,4 @@
-var socket = require('socket.io-client')('http://artnet-server-vr-club.tmkinteractive.com:3000');
+var socket = require('socket.io-client')('http://44.238.190.190:3001');
 var osc = require('osc');
 
 
@@ -18,7 +18,6 @@ udpPort.on("message", function (oscMsg, timeTag, info) {
     console.log("An OSC message just arrived!", oscMsg);
 
     if (oscMsg.address === '/qlab') {
-
     }
 
     // console.log("Remote info is: ", info);
