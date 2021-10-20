@@ -1,7 +1,12 @@
 var app = require('express')();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
-
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+const cors = require('cors');
+app.use(cors({
+    origin: '*'
+}))
 
 var agoraToken = {
     token: '',
@@ -16,6 +21,30 @@ app.get('/', (req, res) => {
     res.send('<h1>Hello world</h1>');
 });
 
+app.get('/get-agora-info', (req, res) => {
+    res.status(200).send({agoraToken, agoraParams});
+});
+
+
+app.post('/player/teleport', (req, res) => {
+    if(req.body.token === 'O5v09foyha') {
+        io.emit('teleportPlayer', {id: req.body.id, action: req.body.action})
+        res.status(200).send('ok');
+    }else{
+        res.status(400).send('not authenticated');
+    }
+});
+
+app.post('/teleport', (req, res) => {
+    if(req.body.token === 'O5v09foyha'){
+        io.emit('teleportAll', {scene: req.body.scene});
+        res.status(200).send('ok');
+    }else{
+        res.status(400).send('not authenticated');
+    }
+
+
+});
 
 io.on('connection', (socket) => {
 
