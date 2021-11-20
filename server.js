@@ -4,6 +4,7 @@ var io = require('socket.io')(http);
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 const cors = require('cors');
+const axios = require("axios");
 app.use(cors({
     origin: '*'
 }))
@@ -35,6 +36,24 @@ app.post('/player/teleport', (req, res) => {
     }
 });
 
+app.post('/player/kick', (req, res) => {
+    if(req.body.token === 'O5v09foyha') {
+        io.emit('teleportPlayer', {id: req.body.id})
+        res.status(200).send('ok');
+    }else{
+        res.status(400).send('not authenticated');
+    }
+})
+
+app.post('/kickAll', (req, res) => {
+    if(req.body.token === 'O5v09foyha'){
+        io.emit('kickAll');
+        res.status(200).send('ok');
+    }else{
+        res.status(400).send('not authenticated');
+    }
+})
+
 app.post('/teleport', (req, res) => {
     if(req.body.token === 'O5v09foyha'){
         io.emit('teleportAll', {scene: req.body.scene});
@@ -42,15 +61,24 @@ app.post('/teleport', (req, res) => {
     }else{
         res.status(400).send('not authenticated');
     }
-
-
 });
+
+app.get('/test', async (req,res) => {
+    const result = await axios.get(`https://vr-club-acecf-default-rtdb.firebaseio.com/config.json`);
+    res.status(200).json(result.data);
+})
 
 io.on('connection', (socket) => {
 
     console.log('a user connected');
     // socket.emit('agoraInfo', agoraToken);
     // socket.emit('agoraParams', agoraParams);
+
+    socket.on('getConfigItem', async (data) => {
+        const result = await axios.get(`https://vr-club-acecf-default-rtdb.firebaseio.com/config.json`);
+        console.log(result.data);
+        socket.emit();
+    })
 
     socket.on('getAgoraInfo', function (data) {
         socket.emit('agoraInfo', agoraToken)
